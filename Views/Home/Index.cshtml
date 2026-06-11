@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <h1>CampusFix</h1>
+    <p>A secure ASP.NET Core service request system for reporting and managing campus issues.</p>
+    <div class="actions">
+        <a class="button" asp-controller="ServiceRequests" asp-action="Create">Submit a Request</a>
+        <a class="button secondary" asp-controller="ServiceRequests" asp-action="MyRequests">Track My Requests</a>
+    </div>
+</section>
+
+<section class="grid">
+    <article class="card">
+        <h2>Role-Based Access</h2>
+        <p>Users can manage their own tickets while admins and technicians manage all requests.</p>
+    </article>
+    <article class="card">
+        <h2>SQL Server Data Model</h2>
+        <p>Requests, comments, users, and status history are stored relationally using EF Core.</p>
+    </article>
+    <article class="card">
+        <h2>Azure Ready</h2>
+        <p>Designed for Azure App Service with Azure SQL Database in production.</p>
+    </article>
+</section>

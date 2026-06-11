@@ -1,0 +1,32 @@
+@model IEnumerable<ServiceRequest>
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<h1>My Requests</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Category</td>
+            <td>@item.Priority</td>
+            <td><span class="badge">@item.Status</span></td>
+            <td>@item.CreatedAt.ToLocalTime().ToString("g")</td>
+            <td><a asp-action="Details" asp-route-id="@item.Id">Details</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

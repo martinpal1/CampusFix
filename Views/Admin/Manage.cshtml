@@ -1,0 +1,48 @@
+@model IEnumerable<ServiceRequest>
+@{
+    ViewData["Title"] = "Manage Requests";
+}
+
+<h1>Manage Requests</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Update Status</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Category</td>
+            <td>@item.Priority</td>
+            <td><span class="badge">@item.Status</span></td>
+            <td>@item.CreatedAt.ToLocalTime().ToString("g")</td>
+            <td>
+                <form asp-action="UpdateStatus" method="post" class="inline-form">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <select name="newStatus">
+                        <option>Submitted</option>
+                        <option>In Review</option>
+                        <option>Assigned</option>
+                        <option>In Progress</option>
+                        <option>Resolved</option>
+                        <option>Closed</option>
+                        <option>Rejected</option>
+                    </select>
+                    <button type="submit">Save</button>
+                </form>
+            </td>
+            <td><a asp-controller="ServiceRequests" asp-action="Details" asp-route-id="@item.Id">Open</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

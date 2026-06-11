@@ -1,0 +1,51 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<section class="card dashboard-links">
+    <h2>Available Pages</h2>
+    <div class="grid">
+        <a class="button" asp-controller="Admin" asp-action="Manage">Manage Requests</a>
+        <a class="button secondary" asp-controller="ServiceRequests" asp-action="Create">Submit Request</a>
+        <a class="button secondary" asp-controller="ServiceRequests" asp-action="MyRequests">My Requests</a>
+        <a class="button secondary" asp-controller="Home" asp-action="Index">Home</a>
+        <a class="button secondary" asp-controller="Home" asp-action="About">About</a>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat"><strong>@Model.TotalRequests</strong><span>Total</span></div>
+    <div class="stat"><strong>@Model.OpenRequests</strong><span>Open</span></div>
+    <div class="stat"><strong>@Model.ResolvedRequests</strong><span>Resolved</span></div>
+    <div class="stat"><strong>@Model.HighPriorityRequests</strong><span>High Priority</span></div>
+</section>
+
+<h2>Recent Requests</h2>
+<table>
+    <thead>
+        <tr><th>Title</th><th>Category</th><th>Status</th><th>Priority</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var request in Model.RecentRequests)
+    {
+        <tr>
+            <td>@request.Title</td>
+            <td>@request.Category</td>
+            <td>@request.Status</td>
+            <td>@request.Priority</td>
+            <td><a asp-controller="ServiceRequests" asp-action="Details" asp-route-id="@request.Id">Open</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Requests by Category</h2>
+<ul>
+@foreach (var category in Model.RequestsByCategory)
+{
+    <li>@category.Key: @category.Value</li>
+}
+</ul>

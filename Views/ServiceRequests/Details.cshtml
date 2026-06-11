@@ -1,0 +1,39 @@
+@model ServiceRequest
+@{
+    ViewData["Title"] = "Request Details";
+}
+
+<h1>@Model.Title</h1>
+
+<section class="card">
+    <p><strong>Category:</strong> @Model.Category</p>
+    <p><strong>Priority:</strong> @Model.Priority</p>
+    <p><strong>Status:</strong> <span class="badge">@Model.Status</span></p>
+    <p><strong>Location:</strong> @Model.Location</p>
+    <p><strong>Description:</strong></p>
+    <p>@Model.Description</p>
+</section>
+
+<h2>Comments</h2>
+@foreach (var comment in Model.Comments.OrderBy(c => c.CreatedAt))
+{
+    <div class="comment">
+        <p>@comment.CommentText</p>
+        <small>@comment.CreatedAt.ToLocalTime().ToString("g")</small>
+    </div>
+}
+
+<form asp-action="AddComment" method="post" class="form-card">
+    <input type="hidden" name="serviceRequestId" value="@Model.Id" />
+    <label for="commentText">Add Comment</label>
+    <textarea name="commentText" rows="3"></textarea>
+    <button type="submit">Add Comment</button>
+</form>
+
+<h2>Status History</h2>
+<ul>
+@foreach (var history in Model.StatusHistory.OrderBy(h => h.ChangedAt))
+{
+    <li>@history.OldStatus → @history.NewStatus at @history.ChangedAt.ToLocalTime().ToString("g")</li>
+}
+</ul>

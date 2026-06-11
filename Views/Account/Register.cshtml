@@ -1,0 +1,29 @@
+@model CampusFix.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="card form-card">
+    <h1>Register</h1>
+    <p>Create a user account to submit and track your own campus service requests.</p>
+
+    <form asp-action="Register" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword"></span>
+
+        <button class="btn" type="submit">Register</button>
+        <a class="btn secondary" asp-controller="Account" asp-action="Login">Already have an account?</a>
+    </form>
+</section>

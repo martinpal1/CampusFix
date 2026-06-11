@@ -1,0 +1,47 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CampusFix</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-controller="Home" asp-action="Index">CampusFix</a>
+        <nav>
+            <a asp-controller="Home" asp-action="About">About</a>
+            <a asp-controller="ServiceRequests" asp-action="Create">Submit Request</a>
+            <a asp-controller="ServiceRequests" asp-action="MyRequests">My Requests</a>
+            <a asp-controller="Admin" asp-action="Dashboard">Admin</a>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <span class="nav-user">@User.Identity?.Name</span>
+                <form class="logout-form" asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login">Login</a>
+                <a asp-controller="Account" asp-action="Register">Register</a>
+            }
+        </nav>
+    </header>
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year CampusFix</p>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

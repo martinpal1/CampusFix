@@ -1,0 +1,35 @@
+@model CampusFix.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="card form-card">
+    <h1>Login</h1>
+    <p>Use your account to submit and track service requests.</p>
+
+    <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+
+        <label class="checkbox-row">
+            <input asp-for="RememberMe" /> Remember me
+        </label>
+
+        <button class="btn" type="submit">Login</button>
+        <a class="btn secondary" asp-controller="Account" asp-action="Register">Create account</a>
+    </form>
+
+    <div class="note-box">
+        <strong>Admin demo login</strong><br />
+        Email: admin@campusfix.local<br />
+        Password: Admin123!
+    </div>
+</section>
